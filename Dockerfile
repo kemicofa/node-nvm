@@ -1,19 +1,28 @@
-FROM ubuntu:groovy
+FROM ubuntu:bionic
 
-ENV NODE_VERSION_DEFAULT 12
+ENV NODE_VERSION_8 8
+ENV NODE_VERSION_10 10
+ENV NODE_VERSION_12 12
+ENV NODE_VERSION_DEFAULT $NODE_VERSION_12
 
-RUN sudo apt install -y curl software-properties-common \
-    && sudo add-apt-repository ppa:deadsnakes/ppa \
-    && sudo apt update \
-    && sudo apt install -y python3.4
+RUN apt update \
+    && apt -y upgrade \
+    && apt -y install software-properties-common curl
+
+RUN add-apt-repository ppa:deadsnakes/ppa \
+    && apt update \
+    && apt -y install python3.4
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash \
     && chmod -x ~/.nvm/nvm.sh
 
-RUN nvm install 8 \
+RUN . /root/.bashrc \
+    && nvm install $NODE_VERSION_8 \
     && npm install -g yarn \
-    && nvm install 10 \
+    && nvm install $NODE_VERSION_10 \
     && npm install -g yarn \
-    && nvm install 12 \
+    && nvm install $NODE_VERSION_12 \
     && npm install -g yarn \
     && nvm alias default $NODE_VERSION_DEFAULT
+
+CMD ["/bin/bash"]
