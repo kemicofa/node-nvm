@@ -14,7 +14,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
     && apt -y install python3.4
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash \
-    && chmod -R -x ~/.nvm/nvm.sh
+    && chmod -R -xr ~/.nvm/nvm.sh
 
 RUN . /root/.bashrc \
     && nvm install $NODE_VERSION_8 \
