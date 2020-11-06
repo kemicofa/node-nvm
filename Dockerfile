@@ -14,6 +14,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
     && apt -y install python3.4
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash \
+    && chmod -r ~/ \
     && chmod -x ~/.nvm/nvm.sh
 
 RUN . /root/.bashrc \
